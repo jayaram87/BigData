@@ -1,0 +1,50 @@
+This is a real time dataset of the ineuron technical consultant team. You have to perform hive analysis on this given dataset.
+
+Download Dataset 1 - https://drive.google.com/file/d/1WrG-9qv6atP-W3P_-gYln1hHyFKRKMHP/view
+
+Download Dataset 2 - https://drive.google.com/file/d/1-JIPCZ34dyN6k9CqJa-Y8yxIGq6vTVXU/view
+
+Note: both files are csv files. 
+
+1. Create a schema based on the given dataset
+create database mini_project1;
+use mini_projec1t;
+
+create table agent_performance                                                                                                            
+    > (                                                                                                                                       
+    > s_no int,                                                                                                                            
+    > date date,                                                                                                                       
+    > agent_name string,                                                                                                                         
+    > t_chats int,
+    > avg_res_time timestamp,
+    > avg_rel_time timestamp,
+    > avg_rating float,
+    > t_feedback int
+    )                                                                                                                             
+    > row format delimited                                                                                                                    
+    > fields terminated by ','
+    > tblproperties ("skip.header.line.count" = "1");
+    
+ create table agent_logging                                                                                                            
+    > (                                                                                                                                       
+    > s_no int,                                                                                                                                                                                                                                                  
+    > agent_name string,  
+    > date date,
+    > login_time timestamp,
+    > logout_time timestamp,
+    > duration timestamp
+    )                                                                                                                             
+    > row format delimited                                                                                                                    
+    > fields terminated by ','
+    > tblproperties ("skip.header.line.count" = "1");
+    
+ 2. Dump the data inside the hdfs in the given schema location.
+ $ hadoop fs -mkdir /tmp/hive/mini_project1
+ $ hadoop fs -put /tmp/hive/AgentLogingReport.csv /tmp/hive/mini_project1
+ $ hadoop fs -put /tmp/hive/AgentPerformance.csv /tmp/hive/mini_project1
+ 
+ hive
+ > load data inpath '/tmp/hive_data_class_2/AgentLogingReport.csv' into table agent_logging;
+ > load data inpath '/tmp/hive_data_class_2/AgentPerformance.csv' into table agent_performance;
+ 
+3. 
